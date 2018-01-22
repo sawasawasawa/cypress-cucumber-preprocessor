@@ -1,0 +1,25 @@
+{
+  "name": "cypress-cucumber-preprocessor",
+  "version": "0.0.2",
+  "description": "Run gherkin-syntaxed specs with cypress.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoNameProvided/cypress-cucumber-preprocessor.git"
+  },
+  "keywords": [
+    "cucumber",
+    "gherkin",
+    "cypress",
+    "testing"
+  ],
+  "author": "Lukasz Gandecki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NoNameProvided/cypress-cucumber-preprocessor/issues"
+  },
+  "homepage": "https://github.com/NoNameProvided/cypress-cucumber-preprocessor#readme"
+}
