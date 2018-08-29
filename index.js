@@ -6,6 +6,7 @@ const browserify = require("@cypress/browserify-preprocessor");
 const log = require("debug")("cypress:cucumber");
 const glob = require("glob");
 const cosmiconfig = require("cosmiconfig");
+const chokidar = require("chokidar");
 
 // This is the template for the file that we will send back to cypress instead of the text of a
 // feature file
@@ -83,15 +84,21 @@ const touch = filename => {
   fs.utimesSync(filename, new Date(), new Date());
 };
 
+let watcher;
 const preprocessor = (options = browserify.defaultOptions) => file => {
   if (options.browserifyOptions.transform.indexOf(transform) === -1) {
     options.browserifyOptions.transform.unshift(transform);
   }
 
   if (file.shouldWatch) {
-    fs.watch(stepDefinitionPath(), { recursive: true }, () =>
-      touch(file.filePath)
-    );
+    if (watcher) {
+      watcher.close();
+    }
+    watcher = chokidar
+      .watch(stepDefinitionPath(), { ignoreInitial: true })
+      .on("all", () => {
+        touch(file.filePath);
+      });
   }
   return browserify(options)(file);
 };
