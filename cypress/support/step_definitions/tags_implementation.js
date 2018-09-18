@@ -13,11 +13,7 @@ then(/the cypress runner should not break/, () => {
   expect(proceedCurrentStep([{name: 'TESTTAG'}], parsedTags)).to.not.throw;
 });
 
-then(/only tests tagged '(.+)' should proceed/, (tags) => {
-  const skippedTags = [{
-    name: '@testTag123'
-  }];
+then(/tests tagged '(.+)' should (not )?proceed/, (tags, shouldProceed = false) => {
   const tagsArray = tags.split(" ").map(tag => ({name: tag}))
-  expect(proceedCurrentStep(skippedTags, parsedTags)).to.equal(false);
-  expect(proceedCurrentStep(tagsArray, parsedTags)).to.equal(true);
+  expect(proceedCurrentStep(tagsArray, parsedTags)).to.equal(!shouldProceed);
 });
