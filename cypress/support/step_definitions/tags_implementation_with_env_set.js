@@ -4,12 +4,14 @@ const { proceedCurrentStep } = require("cypress-cucumber-preprocessor/tagsHelper
 // import/no-extraneous-dependencies
 
 let isPresentInTagsEnv;
+const cypressEnvTags = Cypress.env("TAGS");
 
 given(/'(.+)' is in current TAGS environmental variable/, envTagsString => {
-  const cypressEnvTags = Cypress.env("TAGS");
   isPresentInTagsEnv = RegExp(envTagsString).test(cypressEnvTags);
 });
 
 then(/this should (not )?run/, shouldNotRun => {
-  expect(!shouldNotRun).to.equal(isPresentInTagsEnv); // eslint-disable-line no-unused-expressions
+  if (typeof cypressEnvTags !== "undefined") {
+    expect(!shouldNotRun).to.equal(isPresentInTagsEnv);
+  }
 });
