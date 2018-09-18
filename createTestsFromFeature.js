@@ -20,7 +20,7 @@ const createTestsFromFeature = parsedFeature => {
       section.tags && section.tags.length && proceedCurrentStep(section.tags)
   );
 
-  describe(parsedFeature.feature.name, function() {
+  describe(parsedFeature.feature.name, () => {
     if (featureShouldRun || scenarioHasTags) {
       const backgroundSection = parsedFeature.feature.children.find(
         section => section.type === "Background"
@@ -33,7 +33,6 @@ const createTestsFromFeature = parsedFeature => {
           hasEnvTags && scenarioHasTags
             ? proceedCurrentStep(section.tags)
             : featureShouldRun;
-        
         if (shouldRun) {
           createTestFromScenario(section, backgroundSection);
         }
