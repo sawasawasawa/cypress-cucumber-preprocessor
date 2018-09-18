@@ -15,13 +15,13 @@ const createTestsFromFeature = parsedFeature => {
     }
   }
 
-  const scenarioHasTags = parsedFeature.feature.children.some(
+  const scenariosHaveTags = parsedFeature.feature.children.some(
     section =>
       section.tags && section.tags.length && proceedCurrentStep(section.tags)
   );
 
   describe(parsedFeature.feature.name, () => {
-    if (featureShouldRun || scenarioHasTags) {
+    if (featureShouldRun || scenariosHaveTags) {
       const backgroundSection = parsedFeature.feature.children.find(
         section => section.type === "Background"
       );
@@ -29,9 +29,10 @@ const createTestsFromFeature = parsedFeature => {
         section => section.type !== "Background"
       );
       otherSections.forEach(section => {
+        const scenarioHasTags = section.tags.length > 0
         const shouldRun =
           hasEnvTags && scenarioHasTags
-            ? proceedCurrentStep(section.tags)
+            ? proceedCurrentStep(section.tags.concat(featureTags)) // concat handles inheritance of tags from feature
             : featureShouldRun;
         if (shouldRun) {
           createTestFromScenario(section, backgroundSection);
