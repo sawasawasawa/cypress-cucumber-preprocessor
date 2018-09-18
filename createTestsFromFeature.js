@@ -29,7 +29,7 @@ const createTestsFromFeature = parsedFeature => {
         section => section.type !== "Background"
       );
       otherSections.forEach(section => {
-        const scenarioHasTags = section.tags.length > 0
+        const scenarioHasTags = section.tags.length > 0;
         const shouldRun =
           hasEnvTags && scenarioHasTags
             ? proceedCurrentStep(section.tags.concat(featureTags)) // concat handles inheritance of tags from feature
