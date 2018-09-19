@@ -4,7 +4,7 @@ Feature: Tags Implementation
   I want to allow people to tag their scenarios with any tag
   And then they can use those tags as per https://docs.cucumber.io/cucumber/api/#tags
 
-  Scenario: Pass no tags (see Background)
+  Scenario: Pass no tags
     Given my cypress environment variable TAGS is 'lots of random things'
     Then the cypress runner should not break
 

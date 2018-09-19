@@ -18,6 +18,3 @@ Feature: Tags Implementation with environmental variables set
   Scenario: This scenario should also run
     Given '@test-tag' is in current TAGS environmental variable
     Then this should run
-
-
-
