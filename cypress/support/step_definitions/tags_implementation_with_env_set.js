@@ -1,8 +1,5 @@
 /* global given, then */
 
-const { proceedCurrentStep } = require("cypress-cucumber-preprocessor/tagsHelper"); // eslint-disable-line
-// import/no-extraneous-dependencies
-
 let isPresentInTagsEnv;
 const cypressEnvTags = Cypress.env("TAGS");
 
