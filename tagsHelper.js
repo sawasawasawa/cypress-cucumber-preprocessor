@@ -4,7 +4,7 @@ function getEnvTags() {
   return Cypress.env("TAGS") || "";
 }
 
-function proceedCurrentStep(tags = [], envTags = getEnvTags()) {
+function shouldProceedCurrentStep(tags = [], envTags = getEnvTags()) {
   if (tags.length) {
     const parser = new TagExpressionParser();
     try {
@@ -20,6 +20,6 @@ function proceedCurrentStep(tags = [], envTags = getEnvTags()) {
 }
 
 module.exports = {
-  proceedCurrentStep,
+  shouldProceedCurrentStep,
   getEnvTags
 };

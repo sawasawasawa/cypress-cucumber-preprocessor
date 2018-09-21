@@ -1,5 +1,5 @@
 const { createTestFromScenario } = require("./createTestFromScenario");
-const { proceedCurrentStep, getEnvTags } = require("./tagsHelper");
+const { shouldProceedCurrentStep, getEnvTags } = require("./tagsHelper");
 
 const createTestsFromFeature = parsedFeature => {
   const featureTags = parsedFeature.feature.tags;
@@ -9,7 +9,7 @@ const createTestsFromFeature = parsedFeature => {
   let featureShouldRun = true;
   if (hasEnvTags) {
     if (hasFeatureTags) {
-      featureShouldRun = proceedCurrentStep(featureTags);
+      featureShouldRun = shouldProceedCurrentStep(featureTags);
     } else {
       featureShouldRun = false;
     }
@@ -17,7 +17,9 @@ const createTestsFromFeature = parsedFeature => {
 
   const scenariosHaveTags = parsedFeature.feature.children.some(
     section =>
-      section.tags && section.tags.length && proceedCurrentStep(section.tags)
+      section.tags &&
+      section.tags.length &&
+      shouldProceedCurrentStep(section.tags)
   );
 
   describe(parsedFeature.feature.name, () => {
@@ -32,7 +34,7 @@ const createTestsFromFeature = parsedFeature => {
         const scenarioHasTags = section.tags.length > 0;
         const shouldRun =
           hasEnvTags && scenarioHasTags
-            ? proceedCurrentStep(section.tags.concat(featureTags)) // concat handles inheritance of tags from feature
+            ? shouldProceedCurrentStep(section.tags.concat(featureTags)) // concat handles inheritance of tags from feature
             : featureShouldRun;
         if (shouldRun) {
           createTestFromScenario(section, backgroundSection);

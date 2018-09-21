@@ -1,7 +1,7 @@
 /* eslint-disable prefer-template */
 const { resolveAndRunStepDefinition } = require("./resolveStepDefinition");
 
-const stepTest = stepDetails => {
+const stepTest = function(stepDetails) {
   cy.log(`${stepDetails.keyword} ${stepDetails.text}`);
   resolveAndRunStepDefinition.call(this, stepDetails);
 };
@@ -28,7 +28,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       exampleValues.forEach((rowData, index) => {
         // eslint-disable-next-line prefer-arrow-callback
         const scenarioName = replaceParameterTags(rowData, scenario.name);
-        it(`${scenarioName} (example #${index + 1})`, () => {
+        it(`${scenarioName} (example #${index + 1})`, function() {
           if (backgroundSection) {
             backgroundSection.steps.forEach(step => {
               stepTest.call(this, step);
@@ -45,7 +45,7 @@ const createTestFromScenario = (scenario, backgroundSection) => {
       });
     });
   } else {
-    it(scenario.name, () => {
+    it(scenario.name, function() {
       if (backgroundSection) {
         backgroundSection.steps.forEach(step => stepTest.call(this, step));
       }
