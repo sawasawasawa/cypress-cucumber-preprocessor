@@ -22,7 +22,7 @@ const createTestsFromFeature = parsedFeature => {
       shouldProceedCurrentStep(section.tags)
   );
 
-  describe(parsedFeature.feature.name, () => {
+  describe(parsedFeature.feature.name, function () {
     if (featureShouldRun || scenariosHaveTags) {
       const backgroundSection = parsedFeature.feature.children.find(
         section => section.type === "Background"
